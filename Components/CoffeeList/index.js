@@ -11,7 +11,8 @@ import {
   Thumbnail,
   Text,
   Left,
-  Content
+  Content,
+  Body
 } from "native-base";
 
 // Style
@@ -35,17 +36,12 @@ class CoffeeList extends Component {
           <ListItem style={styles.transparent}>
             <Card style={styles.transparent}>
               <CardItem style={styles.transparent}>
-                <Left>
-                  <Thumbnail
-                    bordered
-                    source={{ uri: shop.img }}
-                    style={styles.thumbnail}
-                  />
+                <Body style={{ alignContent: "center" }}>
                   <Text style={styles.text}>{shop.name}</Text>
                   <Text note style={styles.text}>
                     {shop.distance}
                   </Text>
-                </Left>
+                </Body>
               </CardItem>
             </Card>
           </ListItem>

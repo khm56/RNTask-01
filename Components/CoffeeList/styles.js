@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    opacity: 1
+    opacity: 1,
+    textAlign: "center"
   },
   divider: {
     borderBottomColor: "black",
