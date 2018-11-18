@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ImageBackground, View, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 
 // NativeBase Components
 import {
@@ -26,7 +27,10 @@ class CoffeeList extends Component {
   renderItem(shop) {
     return (
       <TouchableOpacity key={shop.id} onPress={() => this.handlePress(shop)}>
-        <ImageBackground source={shop.background} style={styles.background}>
+        <ImageBackground
+          source={{ uri: shop.background }}
+          style={styles.background}
+        >
           <View style={styles.overlay} />
           <ListItem style={styles.transparent}>
             <Card style={styles.transparent}>
@@ -34,7 +38,7 @@ class CoffeeList extends Component {
                 <Left>
                   <Thumbnail
                     bordered
-                    source={shop.img}
+                    source={{ uri: shop.img }}
                     style={styles.thumbnail}
                   />
                   <Text style={styles.text}>{shop.name}</Text>
@@ -50,7 +54,10 @@ class CoffeeList extends Component {
     );
   }
   render() {
-    let ListItems = coffeeshops.map(shop => this.renderItem(shop));
+    if (!this.props.coffeeshops) {
+      return <Content />;
+    }
+    let ListItems = this.props.coffeeshops.map(shop => this.renderItem(shop));
     return (
       <Content>
         <List>{ListItems}</List>
@@ -59,4 +66,12 @@ class CoffeeList extends Component {
   }
 }
 
-export default CoffeeList;
+const mapStateToProps = state => {
+  return {
+    cart: state.cart.list,
+    coffeeshops: state.coffee.coffeeshops,
+    loading: state.coffee.loading
+  };
+};
+
+export default connect(mapStateToProps)(CoffeeList);
